@@ -59,10 +59,6 @@ if __name__ == '__main__':
         if(args.query == 'euclidean_distance'):
             feature_distance.read_feature_vector("data/normalized/Chess/D01053.obj")
 
-    # if(args.cluster):
-    #     if(args.cluster == 'tsne'):
-    #         clustering.apply_tsne()
-
     if(args.analyze):
         if(args.analyze == 'get_data'):
             quality_analyzer.get_all_query_results(10, knn=False)
@@ -71,7 +67,7 @@ if __name__ == '__main__':
         elif(args.analyze == 'generate_query_results'):
             query_result_saver.save_all_query_results(knn=False)
         elif(args.analyze == 'generate_metrics'):
-            quality_analyzer.save_final_metrics(10, knn=True)
+            quality_analyzer.save_final_metrics(10, knn=False)
         elif(args.analyze == 'generate_roc'):
             quality_analyzer.plot_ROC_curve(10, knn=False)
         elif(args.analyze == 'descriptors'):

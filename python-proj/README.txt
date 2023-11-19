@@ -1,5 +1,17 @@
-To install all neccessary packages, run the following command:
+# Multimedia Retrieval Pipeline
+
+## Controls
+!!Make sure the project is opened with the root folder python-proj/!!
+
+1. To install all neccessary packages, run the following commands:
 pip install -r requirements.txt
+pip install -U scikit-learn scipy
+python -m pip install plotly
+
+
+2. Extract and add analyze-results to the root folder python-proj
+
+
 
 To run the querying app, run the following command (make sure k=6 in settings.py):
 streamlit run mmr_pipeline/__query__.py
