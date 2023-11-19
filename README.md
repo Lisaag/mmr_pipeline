@@ -8,10 +8,7 @@ pip install -r requirements.txt
 pip install -U scikit-learn scipy
 python -m pip install plotly
 
-
-2. Extract and add analyze-results to the root folder python-proj
-
-
+2. 
 To run the querying app, run the following command (make sure k=6 in settings.py):
 streamlit run mmr_pipeline/__query__.py
 
