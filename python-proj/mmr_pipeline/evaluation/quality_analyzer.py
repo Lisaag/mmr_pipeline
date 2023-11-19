@@ -8,7 +8,8 @@ import numpy as np
 import ast
 import plotly.express as px
 from sklearn.metrics import roc_curve, auc
-from scipy.interpolate import interp1d
+import data_generation.generate_histograms as generate_histograms
+import matplotlib.pyplot as plt
 
 def get_database_size(database_path):
     folders = glob.glob(f'{database_path}/*')
@@ -277,4 +278,62 @@ def create_metric_table(knn = False):
                             fill=dict(color=['#ffccab', '#fff4ed']),
                             ))])
     fig.show()
+
+
+
+def create_precision_histogram():
+    csv_df = pd.read_csv(settings.CSV_METRICS_CLASSES_PATH + "/met5.csv")
+    precisions = csv_df.get(key="precision")
+    precisions = list(precisions)
+    precisions = np.array(precisions)
+    
+    print(precisions)
+    shape_classes = csv_df.get(key='shapeclass')
+    shape_classes = list(shape_classes)
+    shape_classes = np.array(shape_classes)
+    print(shape_classes)
+
+    c = np.rec.fromarrays([precisions, shape_classes])
+    c.sort()
+
+    print(c.f0[0])
+    print(c.f0[len(c.f0) - 1])
+
+    f0 = c.f0
+    f1 = c.f1
+
+    for i in range(len(f1)):
+        if c.f1[i] == "total":
+            f1 = np.delete(f1, i)
+            precision = f0[i]
+            f0 = np.delete(f0, i)
+            f0 = np.insert(f0, 0, precision)
+            f1 = np.insert(f1, 0, "total")
+            print("sloep")
+            break
+
+    plt.bar(f1, f0, color = "#db6b6b") # type: ignore
+
+    plt.xticks(range(len(f1)), f1, size=6.0, rotation=90) # type: ignore
+
+    plt.autoscale()
+    plt.tight_layout()
+    plt.savefig(f'{settings.HISTOGRAM_OUTPUT_PATH}{"precision_classes.png"}')
+    print(f'{settings.HISTOGRAM_OUTPUT_PATH}{"precision_classes.png"}')
+    #plt.clf()
+
+    plt.show()
+
+    # plt.xlabel(xlabel)
+    # plt.ylabel(ylabel)
+    # plt.title(title)
+
+    # bar =plt.bar(range(len(value_df)), value_df.values, align='center', color = "#db6b6b") # type: ignore
+
+    # plt.xticks(range(len(value_df)), value_df.index.values, size=6.0, rotation=90) # type: ignore
+
+    # plt.autoscale()
+    # plt.tight_layout()
+    # plt.savefig(f'{settings.HISTOGRAM_OUTPUT_PATH}/{"precision_classes.png"}')
+    # plt.clf()
 

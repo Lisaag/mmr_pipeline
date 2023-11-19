@@ -11,7 +11,7 @@ import faulthandler
 PARSER = argparse.ArgumentParser(prog='MMRPipeline')
 PARSER.add_argument('--display', action='store', choices=['all', 'outliers', 'averages', 'file'])
 PARSER.add_argument('--file', action='store')
-PARSER.add_argument('--analyze', action='store', choices=['get_data', 'generate_table', 'generate_query_results', 'generate_metrics', 'generate_roc', 'descriptors'])
+PARSER.add_argument('--analyze', action='store', choices=['get_data', 'generate_table', 'generate_query_results', 'generate_metrics', 'generate_roc', 'descriptors', 'precision_histogram'])
 PARSER.add_argument('--generate-csv', action='store', choices=['all', 'norm', 'outliers', 'el_descriptors', 'prop_descriptors', 'feature_vectors'])
 PARSER.add_argument('--generate-figures', action='store_true')
 PARSER.add_argument('--normalize', action='store_true')
@@ -71,9 +71,11 @@ if __name__ == '__main__':
         elif(args.analyze == 'generate_query_results'):
             query_result_saver.save_all_query_results(knn=False)
         elif(args.analyze == 'generate_metrics'):
-            quality_analyzer.save_final_metrics(10, knn=False)
+            quality_analyzer.save_final_metrics(10, knn=True)
         elif(args.analyze == 'generate_roc'):
-            quality_analyzer.plot_ROC_curve(2, knn=False)
+            quality_analyzer.plot_ROC_curve(10, knn=False)
         elif(args.analyze == 'descriptors'):
             test_shapes.get_descriptors_primary_shape()
+        elif(args.analyze == 'precision_histogram'):
+            quality_analyzer.create_precision_histogram()
 

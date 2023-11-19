@@ -17,11 +17,7 @@ def generate_label_chart(csv_file: str, target_column: str, filename: str, xlabe
         values = bar.datavalues
         mean = np.mean(values)
         sd = np.std(values)
-        # print(len(values))
-        # print(mean)
-        # print(sd)
-        # print(np.max(values))
-        # print(np.min(values))
+
     plt.xticks(range(len(value_df)), value_df.index.values, size=6.0, rotation=90) # type: ignore
 
     plt.autoscale()
